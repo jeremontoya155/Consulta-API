@@ -13,8 +13,11 @@
   <label for="brandId">ID de la marca:</label>
   <input type="text" id="brandId" name="brandId" required>
 
-  <label for="groupId">ID del grupo:</label>
-  <input type="text" id="groupId" name="groupId" required>
+  <label for="startGroupId">ID de inicio del grupo:</label>
+  <input type="text" id="startGroupId" name="startGroupId" required>
+
+  <label for="endGroupId">ID de fin del grupo:</label>
+  <input type="text" id="endGroupId" name="endGroupId" required>
 
   <button type="button" onclick="buscarModelos()">Buscar Modelos</button>
 </form>
@@ -26,9 +29,10 @@
 <script>
   function buscarModelos() {
     const brandId = document.getElementById('brandId').value;
-    const groupId = document.getElementById('groupId').value;
+    const startGroupId = document.getElementById('startGroupId').value;
+    const endGroupId = document.getElementById('endGroupId').value;
 
-    fetch(`/buscar-modelos?brandId=${brandId}&groupId=${groupId}`)
+    fetch(`/buscar-modelos?brandId=${brandId}&startGroupId=${startGroupId}&endGroupId=${endGroupId}`)
       .then(response => response.json())
       .then(data => {
         const modelosTable = document.getElementById('modelos-table');
