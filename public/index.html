@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Modelos</title>
+</head>
+<body>
+
+<h1>Buscar Modelos</h1>
+
+<form id="buscarModelosForm">
+  <label for="brandId">ID de la marca:</label>
+  <input type="text" id="brandId" name="brandId" required>
+
+  <label for="groupId">ID del grupo:</label>
+  <input type="text" id="groupId" name="groupId" required>
+
+  <button type="button" onclick="buscarModelos()">Buscar Modelos</button>
+</form>
+
+<table id="modelos-table">
+  <!-- Aquí se mostrarán los resultados de la búsqueda -->
+</table>
+
+<script>
+  function buscarModelos() {
+    const brandId = document.getElementById('brandId').value;
+    const groupId = document.getElementById('groupId').value;
+
+    fetch(`/buscar-modelos?brandId=${brandId}&groupId=${groupId}`)
+      .then(response => response.json())
+      .then(data => {
+        const modelosTable = document.getElementById('modelos-table');
+        modelosTable.innerHTML = '<tr><th>Descripción</th><th>CODIA</th></tr>';
+
+        data.modelos.forEach(modelo => {
+          const row = modelosTable.insertRow();
+          row.insertCell(0).textContent = modelo.description;
+          row.insertCell(1).textContent = modelo.codia;
+        });
+      })
+      .catch(error => console.error('Error al buscar modelos:', error));
+  }
+</script>
+
+</body>
+</html>
